@@ -1,0 +1,22 @@
+SceneDetect is used to separate a video into a directory of multiple small clips. It uses director cuts to form scenes.	
+	SceneDetect orignal code: https://github.com/Breakthrough/PySceneDetect
+	-creates a folder of clips
+  
+  
+	dirFrames.py is used to take the directory of clips and convert them in to clips. This makes getting the pallette info way easier.
+	- code: https://github.com/Mkelly98/DeepScoreColor/blob/master/dirFrames.py
+	- just save this to the directory in which you are working in
+  
+  
+	Colorific is used for obtaing the color palette of frames. The code will now create a csv file that will give RGB values and color names.
+	Colorific information and orignal code: https://github.com/99designs/colorific
+	steps to running the edited version:
+	-activate a virtual environment
+	-use the command "pip install colorific"
+  - use the command "pip install webcolors==1.3"
+	- save this version of the "pallette.py" code in the colorific file in your virtual environment (aka replace the orignal)
+	-file: https://github.com/Mkelly98/DeepScoreColor/blob/master/palette.py
+	-location example: YourVirtualEnv/lib/Python3.6/site-packages/colorific
+  
+ What's Next? : assigning emotions to a color
+ 

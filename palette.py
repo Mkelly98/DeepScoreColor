@@ -16,6 +16,8 @@ import multiprocessing
 import sys
 import csv
 import webcolors
+import re
+from types import *
 from PIL import Image, ImageChops, ImageDraw
 from collections import Counter, namedtuple
 from colormath.color_objects import sRGBColor, LabColor
@@ -25,7 +27,7 @@ from operator import itemgetter, mul, attrgetter
 
 
 from colorific import config
-title = input("Title:")
+title = input()
 fh ='{0}Palette.csv'.format(title)
 
 
@@ -220,8 +222,10 @@ def detect_background(im, colors, to_canonical):
 
     return colors, bg_color
 #####insert color name####
-
-
+##########################################################
+##########################################################
+##########################################################
+##########################################################
 def closest_colour(requested_colour):
     min_colours = {}
     for key, name in webcolors.css3_hex_to_names.items():
@@ -240,12 +244,31 @@ def get_colour_name(requested_colour):
         actual_name = None
     return actual_name, closest_name
 
-    ## My inserted code##
-##read csv
-#fh = input ('What is the filename? ')+'.csv' #get the file name
+
+#### My inserted code##
+# def color_average(closest_name):
+#     r=0
+#     o=0
+#     y=0
+#     b=0
+#     i=0
+#     v=0
+#     if closest_name == 'red':
+#         r+=1
+#     elif closest_name == 'pink':
+#     elif closest_name == 'yellow':
+#     elif closest_name == 'orange':
+#     elif closest_name == 'green':
+#     elif closest_name == 'blue':
+#     elif closest_name == 'purple':
+#     elif closest_name == 'white':
+#     elif closest_name == 'black':
+#     elif closest_name == 'gray'or 'grey':
 
 
-#print ("Actual colour name:", actual_name, ", closest colour name:", closest_name)
+##########################################################
+##########################################################
+##########################################################
 ##########################################################
 
 def print_colors(filename, palette):
@@ -260,10 +283,80 @@ def print_colors(filename, palette):
             r = c.value[0]
             g = c.value[1]
             b = c.value[2]
-            row.append(c.value)
+            #row.append(c.value)
             requested_colour = (r,g,b) # create rgb tuple
             actual_name, closest_name = get_colour_name(requested_colour) ##get color name
             row. append(closest_name)
+        #     # color emotion association
+            if closest_name == 'red'or closest_name =='lightsalmon'or closest_name =='darksalmon'or closest_name =='lighcoral'or closest_name =='indianred'or closest_name =='crimson'or closest_name =='firebrick' or closest_name =='darkred':
+                emotion = ['anger', 'passion', 'love']
+                # row. append(emotion[0])
+                # row. append(emotion[1])
+                # row. append(emotion[2])
+                # break
+            elif closest_name == 'pink' or closest_name =='lightpink' or closest_name =='hotpink' or closest_name =='deeppink' or closest_name =='palevioletred'or closest_name =='mediumvioletred':
+                emotion = ['love', 'playful', 'happy']
+                # row. append(emotion[0])
+                # row. append(emotion[1])
+                # row. append(emotion[2])
+                # break
+            elif closest_name == 'yellow'or closest_name =='lightyellow'or closest_name =='lemonchiffon'or closest_name =='lightgoldenrodyellow'or closest_name =='papayawhip' or closest_name =='moccasin' or closest_name =='peachpuff' or closest_name =='palegoldenrod' or closest_name =='khaki'or closest_name =='darkkhaki':
+                emotion = ['happy', 'anxious', 'danger']
+                # row. append(emotion[0])
+                # row. append(emotion[1])
+                # row. append(emotion[2])
+                # break
+            elif closest_name =='orange' or closest_name =='tomato' or closest_name =='orangered' or closest_name =='gold' or closest_name =='darkorange':
+                emotion = ['happy', 'content', 'social']
+                # row. append(emotion[0])
+                # row. append(emotion[1])
+                # row. append(emotion[2])
+                # break
+            elif closest_name == 'green'or closest_name =='lawngreen' or closest_name =='chartreuse' or closest_name =='limegreen' or closest_name =='lime' or closest_name =='forestgreen'or closest_name =='darkgreen' or closest_name =='greenyellow' or closest_name =='yellowgreen' or closest_name =='springgreen'or closest_name =='mediumspringgreen' or closest_name =='lightgreen' or closest_name =='palegreen' or closest_name =='darkseagreen' or closest_name =='mediumseagreen' or closest_name=='seagreen' or closest_name =='olive' or closest_name =='darkolivegreen' or closest_name =='olivedrab':
+                emotion = ['jealous', 'content', 'danger']
+                # row. append(emotion[0])
+                # row. append(emotion[1])
+                # row. append(emotion[2])
+                # break
+            elif closest_name =='blue'or closest_name =='powderblue' or closest_name =='lightblue' or closest_name =='lightskyblue' or closest_name =='skyblue'or closest_name =='deepskyblue'or closest_name =='lightsteelblue'or closest_name =='dodgerblue' or closest_name =='cornflowerblue' or closest_name =='steelblue' or closest_name =='royalblue' or closest_name =='mediumblue' or closest_name =='darkblue' or closest_name =='navy' or closest_name =='midnightblue' or closest_name=='mediumslateblue' or closest_name =='slateblue' or closest_name =='darkslateblue' or closest_name =='lightcyan' or closest_name =='cyan' or closest_name =='aqua' or closest_name =='aquamarine' or closest_name =='mediumaquamarine' or closest_name =='paleturquoise' or closest_name =='turquoise' or closest_name =='mediumturquoise'or closest_name =='darkturquoise' or closest_name =='lightseagreen' or closest_name =='cadetblue' or closest_name =='darkcyan' or closest_name=='teal':
+                emotion = ['sad', 'content', 'ominous']
+                # row. append(emotion[0])
+                # row. append(emotion[1])
+                # row. append(emotion[2])
+                # break
+            elif closest_name =='purple'or closest_name =='lavender'or closest_name =='thistle' or closest_name =='plum'or closest_name =='violet'or closest_name =='orchid' or closest_name =='fuchsia' or closest_name =='magenta' or closest_name =='mediumorchid'or closest_name =='mediumpurple' or closest_name =='blueviolet'or closest_name =='darkviolet'or closest_name =='darkorchid' or closest_name =='darkmagenta' or closest_name =='indigo':
+                emotion = ['erotic', 'mysterious', 'ominous']
+                # row. append(emotion[0])
+                # row. append(emotion[1])
+                # row. append(emotion[2])
+                # break
+            elif closest_name == 'white'or closest_name =='snow' or closest_name =='honeydew'or closest_name =='mintcream' or closest_name =='azure' or closest_name =='aliceblue' or closest_name =='ghostwhite'or closest_name =='whitesmoke' or closest_name =='seashell' or closest_name =='beige' or closest_name =='oldlace'or closest_name =='floralwhite' or closest_name =='ivory'or closest_name =='antiquewhite' or closest_name =='linen'or closest_name =='lavenderblush' or closest_name=='mistyrose':
+                emotion = ['pure', 'content', 'simple']
+                # row. append(emotion[0])
+                # row. append(emotion[1])
+                # row. append(emotion[2])
+                # break
+            elif closest_name == 'black':
+                emotion = ['danger', 'sad', 'anxious']
+                # row. append(emotion[0])
+                # row. append(emotion[1])
+                # row. append(emotion[2])
+                # break
+            elif closest_name == 'gray'or closest_name =='grey' or closest_name =='gainsboro' or closest_name =='lightgrey' or closest_name =='lightgray' or closest_name =='silver' or closest_name =='darkgray'or closest_name =='darkgrey' or closest_name =='dimgray'or closest_name =='dimgrey' or closest_name =='lightslategray' or closest_name =='lightslategrey'or closest_name =='slategray' or closest_name =='slategrey' or closest_name =='darkslategray' or closest_name =='darkslategrey':
+                emotion = ['mourning', 'detached', 'content']
+                # row.append(emotion[0])
+                # row.append(emotion[1])
+                # row.append(emotion[2])
+                # break
+            elif closest_name == 'brown' or closest_name =='cornsilk' or closest_name =='blanchedalmond' or closest_name =='bisque' or closest_name =='navajowhite' or closest_name =='wheat' or closest_name =='burlywood'or closest_name =='tan' or closest_name =='rosybrown'or closest_name =='sandybrown' or closest_name =='goldenrod' or closest_name =='peru'or closest_name =='chocolate' or closest_name =='saddlebrown' or closest_name =='sienna' or closest_name =='maroon':
+                emotion = ['simple', 'content']
+                # row.append(emotion[0])
+                # row.append(emotion[1])
+                # break
+            else:
+                row.append("Not Available")
+                #break
+            row.append(emotion)
         writer.writerow(row)
     # print(colors)
     sys.stdout.flush()

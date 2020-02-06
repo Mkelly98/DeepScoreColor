@@ -2,8 +2,8 @@ import cv2
 import os
 import sys
 name =input("directory: ")
-title = input("Title: ") # what do you want to name the file
-fh = "/{0}Frames/".format(title)
+title = input("title: ")
+fh = "/{0}_frames/".format(title)
 currDir = os.getcwd() # gets current directory
 mypath = currDir + "/" + name; # gets name of dir you want
 for root, dirs, files in os.walk(mypath):
@@ -38,5 +38,5 @@ for root, dirs, files in os.walk(mypath):
             success = getFrame(sec)
 if initialSuccess:
     print("Frame conversion completed")
-else:
+else: 
     print("Frame conversion incomplete")
